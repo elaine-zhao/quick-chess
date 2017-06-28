@@ -14,5 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *topTime;
 
+- (void)onTick:(NSTimer *) timer;
+
 @end
 
