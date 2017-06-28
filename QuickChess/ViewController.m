@@ -17,12 +17,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    [_topTime setTransform:CGAffineTransformMakeRotation(-M_PI)];
 }
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)bottomButtonTapped:(UIButton *)sender {
+    
+    _bottomTime.text = @"hello";
 }
 
 

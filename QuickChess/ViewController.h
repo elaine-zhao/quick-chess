@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *bottomTime;
+
+@property (weak, nonatomic) IBOutlet UILabel *topTime;
 
 @end
 
