@@ -14,13 +14,18 @@
 
 @implementation ViewController
 
+int topSecondsLeft = 540;
+int bottomSecondsLeft = 540;
 NSString *topTimeString = @"09:00";
 NSString *bottomTimeString = @"09:00";
 NSTimer *timer = nil;
+int secondsLeft = 0;
+UILabel *timeLabel = nil;
+NSDateFormatter *dateFormat = nil;
 bool isTopTurn = true;
 int ticks = 0;
 
-
+// TODO: release NSDateFormatter
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +37,8 @@ int ticks = 0;
     // rotate top label
     [_topTime setTransform:CGAffineTransformMakeRotation(-M_PI)];
     
+    dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"mm:ss"];
     
 }
 
@@ -41,24 +48,49 @@ int ticks = 0;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)swapTurn:(bool) toTop {
+    if (toTop == true) {
+        isTopTurn = true;
+        timeString = topTimeString;
+        timeLabel = _topTime;
+    } else {
+        isTopTurn = false;
+        timeString = bottomTimeString;
+        timeLabel = _bottomTime;
+    }
+}
+
+- (NSString *) getTimeStringFromSeconds: (int) seconds {
+    int minutes = seconds / 60;
+    seconds = seconds % 60;
+    return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+    
+}
+
+
 // converts turn's time to date, subtracts 1 second, set label to new date
 -(void)onTick:(NSTimer *)timer {
     ticks += 1;
     NSLog(@"%d", ticks);
+
+    
+    timeLabel.text =
+    
+    
 }
 
 
 
 - (IBAction)topButtonTapped:(UIButton *)sender {
     if (timer == nil) {
-        isTopTurn = true;
+        [self swapTurn: (true)];
         timer = [NSTimer scheduledTimerWithTimeInterval: 1
                                                     target: self
                                                   selector:@selector(onTick:)
                                                   userInfo: nil repeats:YES];
         NSLog(@"timer did not exist. is top turn.");
     } else {
-        isTopTurn = false;
+        [self swapTurn: (false)];
         NSLog(@"timer existed. is now bottom turn.");
 
     }
@@ -68,14 +100,14 @@ int ticks = 0;
 
 - (IBAction)bottomButtonTapped:(UIButton *)sender {
     if (timer == nil) {
-        isTopTurn = false;
+        [self swapTurn: (false)];
         timer = [NSTimer scheduledTimerWithTimeInterval: 1
                                                  target: self
                                                selector:@selector(onTick:)
                                                userInfo: nil repeats:YES];
         NSLog(@"timer did not exist. is bottom turn.");
     } else {
-        isTopTurn = true;
+        [self swapTurn: (true)];
         NSLog(@"timer existed. is now top turn");
     }
     
