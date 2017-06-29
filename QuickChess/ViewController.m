@@ -14,106 +14,76 @@
 
 @implementation ViewController
 
-int topSecondsLeft = 540;
+int topSecondsLeft = 540; // TODO have players set
 int bottomSecondsLeft = 540;
-NSString *topTimeString = @"09:00";
-NSString *bottomTimeString = @"09:00";
-NSTimer *timer = nil;
-int secondsLeft = 0;
-UILabel *timeLabel = nil;
-NSDateFormatter *dateFormat = nil;
 bool isTopTurn = true;
-int ticks = 0;
-
-// TODO: release NSDateFormatter
+int curPlayerSecondsLeft;
+UILabel *curPlayerTimeLabel;
+NSTimer *timer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    _bottomTime.text = bottomTimeString;
-    _topTime.text = topTimeString;
+    _topTimeLabel.text = [self getTimeStringFromSeconds:(topSecondsLeft)];
+    _bottomTimeLabel.text = [self getTimeStringFromSeconds:(bottomSecondsLeft)];
     
     // rotate top label
-    [_topTime setTransform:CGAffineTransformMakeRotation(-M_PI)];
-    
-    dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"mm:ss"];
-    
+    [_topTimeLabel setTransform:CGAffineTransformMakeRotation(-M_PI)];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+// change relevant variables so that ticks will update other player's time
 - (void)swapTurn:(bool) toTop {
     if (toTop == true) {
         isTopTurn = true;
-        timeString = topTimeString;
-        timeLabel = _topTime;
+        curPlayerSecondsLeft = topSecondsLeft;
+        curPlayerTimeLabel = _topTimeLabel;
     } else {
         isTopTurn = false;
-        timeString = bottomTimeString;
-        timeLabel = _bottomTime;
+        curPlayerSecondsLeft = bottomSecondsLeft;
+        curPlayerTimeLabel = _bottomTimeLabel;
     }
 }
 
+// convert seconds to string with format mm:ss
 - (NSString *) getTimeStringFromSeconds: (int) seconds {
     int minutes = seconds / 60;
     seconds = seconds % 60;
     return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
-    
 }
 
-
-// converts turn's time to date, subtracts 1 second, set label to new date
+// subtract from current player's seconds left
+// convert to string and set player's time label
+// update that player's seconds left
 -(void)onTick:(NSTimer *)timer {
-    ticks += 1;
-    NSLog(@"%d", ticks);
-
-    
-    timeLabel.text =
-    
-    
+    curPlayerSecondsLeft -=1;
+    curPlayerTimeLabel.text = [self getTimeStringFromSeconds:(curPlayerSecondsLeft)];
+    if (isTopTurn) {
+        topSecondsLeft = curPlayerSecondsLeft;
+    } else {
+        bottomSecondsLeft = curPlayerSecondsLeft;
+    }
 }
 
-
-
-- (IBAction)topButtonTapped:(UIButton *)sender {
+// if first tap, start the timer on this player's side
+// else, swap to other player's turn
+- (IBAction)playerButtonTapped:(UIButton *)sender {
+    bool isTop = sender.tag; // TODO depends on tag convention
     if (timer == nil) {
-        [self swapTurn: (true)];
+        [self swapTurn: (isTop)];
         timer = [NSTimer scheduledTimerWithTimeInterval: 1
                                                     target: self
                                                   selector:@selector(onTick:)
                                                   userInfo: nil repeats:YES];
-        NSLog(@"timer did not exist. is top turn.");
     } else {
-        [self swapTurn: (false)];
-        NSLog(@"timer existed. is now bottom turn.");
-
+        [self swapTurn: (!isTop)];
     }
-
 }
-
-
-- (IBAction)bottomButtonTapped:(UIButton *)sender {
-    if (timer == nil) {
-        [self swapTurn: (false)];
-        timer = [NSTimer scheduledTimerWithTimeInterval: 1
-                                                 target: self
-                                               selector:@selector(onTick:)
-                                               userInfo: nil repeats:YES];
-        NSLog(@"timer did not exist. is bottom turn.");
-    } else {
-        [self swapTurn: (true)];
-        NSLog(@"timer existed. is now top turn");
-    }
-    
-}
-
-
 
 
 @end

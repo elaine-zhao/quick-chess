@@ -10,11 +10,9 @@
 
 @interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *bottomTime;
+@property (weak, nonatomic) IBOutlet UILabel *topTimeLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *topTime;
-
-- (void)onTick:(NSTimer *) timer;
+@property (weak, nonatomic) IBOutlet UILabel *bottomTimeLabel;
 
 @end
 
