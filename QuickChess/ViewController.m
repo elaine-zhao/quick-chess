@@ -76,14 +76,30 @@ NSTimer *timer;
     bool isTop = sender.tag; // TODO depends on tag convention
     if (timer == nil) {
         [self swapTurn: (isTop)];
-        timer = [NSTimer scheduledTimerWithTimeInterval: 1
-                                                    target: self
-                                                  selector:@selector(onTick:)
-                                                  userInfo: nil repeats:YES];
+        [self createNewTimer];
     } else {
         [self swapTurn: (!isTop)];
     }
 }
 
+- (IBAction)pauseResumeButtonPressed:(UIButton *)sender {
+    // to pause
+    if (timer != nil) {
+        [timer invalidate];
+        timer = nil;
+    }
+    // to resume
+    else {
+        [self createNewTimer];
+    }
+}
+
+// TODO slight cheat bc always get full second after resume
+- (void) createNewTimer {
+    timer = [NSTimer scheduledTimerWithTimeInterval: 1
+                                             target: self
+                                           selector:@selector(onTick:)
+                                           userInfo: nil repeats:YES];
+}
 
 @end

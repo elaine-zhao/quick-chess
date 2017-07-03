@@ -70,6 +70,16 @@
                                     <constraint firstItem="xDa-q5-OaV" firstAttribute="centerX" secondItem="dXL-8h-B7B" secondAttribute="centerX" id="n1W-vg-MgG"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aR0-N8-3Dr">
+                                <rect key="frame" x="150" y="307" width="75" height="75"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
+                                </accessibility>
+                                <state key="normal" image="Pause"/>
+                                <connections>
+                                    <action selector="pauseResumeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bDB-2o-VeK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -79,9 +89,11 @@
                             <constraint firstAttribute="leadingMargin" secondItem="dXL-8h-B7B" secondAttribute="leading" id="Egr-IR-j9C"/>
                             <constraint firstItem="lJL-aI-XJg" firstAttribute="height" secondItem="dXL-8h-B7B" secondAttribute="height" id="KN0-jD-4yk"/>
                             <constraint firstItem="rUr-wI-hEY" firstAttribute="top" secondItem="lJL-aI-XJg" secondAttribute="bottom" constant="8" symbolic="YES" id="QnY-mZ-eeJ"/>
+                            <constraint firstItem="aR0-N8-3Dr" firstAttribute="centerY" secondItem="4s0-fT-RqM" secondAttribute="centerY" id="UdY-FI-N14"/>
                             <constraint firstItem="lJL-aI-XJg" firstAttribute="top" secondItem="dXL-8h-B7B" secondAttribute="bottom" constant="20" id="Uqv-G9-mp6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lJL-aI-XJg" secondAttribute="trailing" id="qby-Pc-ScV"/>
                             <constraint firstAttribute="leadingMargin" secondItem="lJL-aI-XJg" secondAttribute="leading" id="u3L-H2-Qht"/>
+                            <constraint firstItem="aR0-N8-3Dr" firstAttribute="centerX" secondItem="4s0-fT-RqM" secondAttribute="centerX" id="zHv-Jk-mzb"/>
                         </constraints>
                     </view>
                     <connections>
@@ -94,4 +106,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Pause" width="128" height="128"/>
+    </resources>
 </document>
