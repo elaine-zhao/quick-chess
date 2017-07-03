@@ -20,6 +20,8 @@ bool isTopTurn = true;
 int curPlayerSecondsLeft;
 UILabel *curPlayerTimeLabel;
 NSTimer *timer;
+bool gameStarted = false;
+bool isPaused = false;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,27 +72,33 @@ NSTimer *timer;
     }
 }
 
-// if first tap, start the timer on this player's side
+// if first tap, start game and start the timer on this player's side
 // else, swap to other player's turn
 - (IBAction)playerButtonTapped:(UIButton *)sender {
     bool isTop = sender.tag; // TODO depends on tag convention
-    if (timer == nil) {
+    // start game
+    if (!gameStarted) {
+        gameStarted = true;
+        NSLog(@"%d", isTop);
         [self swapTurn: (isTop)];
         [self createNewTimer];
-    } else {
+    }
+    // swap player if not paused
+    else if (!isPaused) {
         [self swapTurn: (!isTop)];
     }
 }
 
 - (IBAction)pauseResumeButtonPressed:(UIButton *)sender {
-    // to pause
-    if (timer != nil) {
-        [timer invalidate];
-        timer = nil;
-    }
-    // to resume
-    else {
-        [self createNewTimer];
+    if (gameStarted) {
+        if (!isPaused) { // pause game
+            [timer invalidate];
+            timer = nil;
+            isPaused = true;
+        } else { // resume game
+            [self createNewTimer];
+            isPaused = false;
+        }
     }
 }
 
