@@ -95,9 +95,11 @@ bool isPaused = false;
             [timer invalidate];
             timer = nil;
             isPaused = true;
+            [sender setImage:[UIImage imageNamed:@"Resume"] forState:UIControlStateNormal];
         } else { // resume game
             [self createNewTimer];
             isPaused = false;
+            [sender setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         }
     }
 }
