@@ -14,8 +14,9 @@
 
 @implementation ViewController
 
-int topSecondsLeft = 540; // TODO have players set
-int bottomSecondsLeft = 540;
+int startingMins = 9; // TODO have players set
+int topSecondsLeft;
+int bottomSecondsLeft;
 bool isTopTurn = true;
 int curPlayerSecondsLeft;
 UILabel *curPlayerTimeLabel;
@@ -32,6 +33,9 @@ bool isPaused = false;
     
     // rotate top label
     [_topTimeLabel setTransform:CGAffineTransformMakeRotation(-M_PI)];
+    
+    topSecondsLeft = startingMins * 60;
+    bottomSecondsLeft = startingMins * 60;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,7 +83,6 @@ bool isPaused = false;
     // start game
     if (!gameStarted) {
         gameStarted = true;
-        NSLog(@"%d", isTop);
         [self swapTurn: (isTop)];
         [self createNewTimer];
     }
