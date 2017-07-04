@@ -22,31 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lJL-aI-XJg">
-                                <rect key="frame" x="16" y="353.5" width="343" height="305.5"/>
-                                <subviews>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="bottomTimeLabel" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKG-GL-zET">
-                                        <rect key="frame" x="171.5" y="152.5" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoF-ZS-CNG">
-                                        <rect key="frame" x="40" y="85" width="95" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="bottomButton"/>
-                                        <connections>
-                                            <action selector="playerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jg7-XF-HvW"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.4454603407134643" green="0.62353152703224357" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="QKG-GL-zET" firstAttribute="centerY" secondItem="lJL-aI-XJg" secondAttribute="centerY" id="U63-gl-eyb"/>
-                                    <constraint firstItem="QKG-GL-zET" firstAttribute="centerX" secondItem="lJL-aI-XJg" secondAttribute="centerX" id="gdx-d4-Tqq"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dXL-8h-B7B">
+                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dXL-8h-B7B" userLabel="topView">
                                 <rect key="frame" x="16" y="28" width="343" height="305.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDa-q5-OaV">
@@ -70,21 +46,68 @@
                                     <constraint firstItem="xDa-q5-OaV" firstAttribute="centerX" secondItem="dXL-8h-B7B" secondAttribute="centerX" id="n1W-vg-MgG"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aR0-N8-3Dr">
-                                <rect key="frame" x="150" y="307" width="75" height="75"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <state key="normal" image="Pause"/>
-                                <connections>
-                                    <action selector="pauseResumeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bDB-2o-VeK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOm-SZ-Yvn">
-                                <rect key="frame" x="244" y="329" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lJL-aI-XJg" userLabel="bottomView">
+                                <rect key="frame" x="16" y="353.5" width="343" height="305.5"/>
+                                <subviews>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="bottomTimeLabel" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKG-GL-zET">
+                                        <rect key="frame" x="171.5" y="152.5" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoF-ZS-CNG">
+                                        <rect key="frame" x="40" y="85" width="95" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="bottomButton"/>
+                                        <connections>
+                                            <action selector="playerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jg7-XF-HvW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.4454603407134643" green="0.62353152703224357" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="QKG-GL-zET" firstAttribute="centerY" secondItem="lJL-aI-XJg" secondAttribute="centerY" id="U63-gl-eyb"/>
+                                    <constraint firstItem="QKG-GL-zET" firstAttribute="centerX" secondItem="lJL-aI-XJg" secondAttribute="centerX" id="gdx-d4-Tqq"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDG-ic-UTl" userLabel="buttonsView">
+                                <rect key="frame" x="56" y="283.5" width="263" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOm-SZ-Yvn" userLabel="refreshButton">
+                                        <rect key="frame" x="168" y="12" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="rAD-g4-xCi"/>
+                                            <constraint firstAttribute="height" constant="75" id="yFb-fb-uia"/>
+                                        </constraints>
+                                        <state key="normal" image="Refresh"/>
+                                        <connections>
+                                            <action selector="refreshButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sxQ-KK-20Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aR0-N8-3Dr" userLabel="pauseButton">
+                                        <rect key="frame" x="20" y="12" width="75" height="75"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" image="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="94d-5l-Dsb"/>
+                                            <constraint firstAttribute="width" constant="75" id="vBn-BD-OWs"/>
+                                        </constraints>
+                                        <state key="normal" image="Pause"/>
+                                        <connections>
+                                            <action selector="pauseResumeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bDB-2o-VeK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="XOm-SZ-Yvn" firstAttribute="centerY" secondItem="aR0-N8-3Dr" secondAttribute="centerY" id="cxg-fS-Ybs"/>
+                                    <constraint firstAttribute="trailing" secondItem="XOm-SZ-Yvn" secondAttribute="trailing" constant="20" symbolic="YES" id="iug-bv-Gsg"/>
+                                    <constraint firstItem="aR0-N8-3Dr" firstAttribute="centerY" secondItem="PDG-ic-UTl" secondAttribute="centerY" id="lLS-li-xhv"/>
+                                    <constraint firstAttribute="height" constant="100" id="u09-12-O0K"/>
+                                    <constraint firstItem="aR0-N8-3Dr" firstAttribute="leading" secondItem="PDG-ic-UTl" secondAttribute="leading" constant="20" symbolic="YES" id="u93-sn-1zj"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -94,15 +117,19 @@
                             <constraint firstAttribute="leadingMargin" secondItem="dXL-8h-B7B" secondAttribute="leading" id="Egr-IR-j9C"/>
                             <constraint firstItem="lJL-aI-XJg" firstAttribute="height" secondItem="dXL-8h-B7B" secondAttribute="height" id="KN0-jD-4yk"/>
                             <constraint firstItem="rUr-wI-hEY" firstAttribute="top" secondItem="lJL-aI-XJg" secondAttribute="bottom" constant="8" symbolic="YES" id="QnY-mZ-eeJ"/>
-                            <constraint firstItem="aR0-N8-3Dr" firstAttribute="centerY" secondItem="4s0-fT-RqM" secondAttribute="centerY" id="UdY-FI-N14"/>
                             <constraint firstItem="lJL-aI-XJg" firstAttribute="top" secondItem="dXL-8h-B7B" secondAttribute="bottom" constant="20" id="Uqv-G9-mp6"/>
+                            <constraint firstItem="PDG-ic-UTl" firstAttribute="centerY" secondItem="4s0-fT-RqM" secondAttribute="centerY" id="WwE-CB-855"/>
+                            <constraint firstItem="PDG-ic-UTl" firstAttribute="leading" secondItem="4s0-fT-RqM" secondAttribute="leadingMargin" constant="40" id="bQk-9i-plZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PDG-ic-UTl" secondAttribute="trailing" constant="40" id="cvd-W0-nJO"/>
+                            <constraint firstItem="PDG-ic-UTl" firstAttribute="centerX" secondItem="4s0-fT-RqM" secondAttribute="centerX" id="jb7-ye-QoA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lJL-aI-XJg" secondAttribute="trailing" id="qby-Pc-ScV"/>
                             <constraint firstAttribute="leadingMargin" secondItem="lJL-aI-XJg" secondAttribute="leading" id="u3L-H2-Qht"/>
-                            <constraint firstItem="aR0-N8-3Dr" firstAttribute="centerX" secondItem="4s0-fT-RqM" secondAttribute="centerX" id="zHv-Jk-mzb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bottomTimeLabel" destination="QKG-GL-zET" id="1Lu-eX-03P"/>
+                        <outlet property="buttonsView" destination="PDG-ic-UTl" id="mNC-xd-coW"/>
+                        <outlet property="pauseButton" destination="aR0-N8-3Dr" id="eIH-uQ-QOz"/>
                         <outlet property="topTimeLabel" destination="xDa-q5-OaV" id="fEL-I6-g2w"/>
                     </connections>
                 </viewController>
@@ -113,5 +140,6 @@
     </scenes>
     <resources>
         <image name="Pause" width="128" height="128"/>
+        <image name="Refresh" width="128" height="128"/>
     </resources>
 </document>

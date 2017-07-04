@@ -15,27 +15,22 @@
 @implementation ViewController
 
 int startingMins = 9; // TODO have players set
-int topSecondsLeft;
+int topSecondsLeft; // TODO make millis
 int bottomSecondsLeft;
-bool isTopTurn = true;
+bool isTopTurn;
 int curPlayerSecondsLeft;
 UILabel *curPlayerTimeLabel;
 NSTimer *timer;
-bool gameStarted = false;
-bool isPaused = false;
+bool gameStarted;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    _topTimeLabel.text = [self getTimeStringFromSeconds:(topSecondsLeft)];
-    _bottomTimeLabel.text = [self getTimeStringFromSeconds:(bottomSecondsLeft)];
+    [self setUpBeforeStartGame];
     
     // rotate top label
     [_topTimeLabel setTransform:CGAffineTransformMakeRotation(-M_PI)];
-    
-    topSecondsLeft = startingMins * 60;
-    bottomSecondsLeft = startingMins * 60;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,24 +82,44 @@ bool isPaused = false;
         [self createNewTimer];
     }
     // swap player if not paused
-    else if (!isPaused) {
+    else if (timer != nil) {
         [self swapTurn: (!isTop)];
     }
 }
 
 - (IBAction)pauseResumeButtonPressed:(UIButton *)sender {
     if (gameStarted) {
-        if (!isPaused) { // pause game
+        if (timer != nil) { // pause game
             [timer invalidate];
             timer = nil;
-            isPaused = true;
             [sender setImage:[UIImage imageNamed:@"Resume"] forState:UIControlStateNormal];
         } else { // resume game
             [self createNewTimer];
-            isPaused = false;
             [sender setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         }
     }
+}
+
+- (IBAction)refreshButtonPressed:(UIButton *)sender {
+    if (gameStarted) {
+        if (timer != nil) {
+            [timer invalidate];
+            timer = nil;
+        }
+        [self setUpBeforeStartGame];
+        
+    }
+}
+
+// sets players' time left to starting time
+- (void) setUpBeforeStartGame {
+    topSecondsLeft = startingMins * 60;
+    bottomSecondsLeft = startingMins * 60;
+    
+    _topTimeLabel.text = [self getTimeStringFromSeconds:(topSecondsLeft)];
+    _bottomTimeLabel.text = [self getTimeStringFromSeconds:(bottomSecondsLeft)];
+    [_pauseButton setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
+    gameStarted = false;
 }
 
 // TODO slight cheat bc always get full second after resume
