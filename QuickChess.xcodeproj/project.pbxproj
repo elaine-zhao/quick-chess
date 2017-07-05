@@ -15,6 +15,7 @@
 		06796D541F01F1B9003DB3FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06796D521F01F1B9003DB3FF /* LaunchScreen.storyboard */; };
 		06796D5F1F01F1B9003DB3FF /* QuickChessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06796D5E1F01F1B9003DB3FF /* QuickChessTests.m */; };
 		06796D6A1F01F1B9003DB3FF /* QuickChessUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06796D691F01F1B9003DB3FF /* QuickChessUITests.m */; };
+		068AF0641F0D5B0900C05334 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 068AF0631F0D5B0900C05334 /* ResultsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		06796D651F01F1B9003DB3FF /* QuickChessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickChessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06796D691F01F1B9003DB3FF /* QuickChessUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickChessUITests.m; sourceTree = "<group>"; };
 		06796D6B1F01F1B9003DB3FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		068AF0631F0D5B0900C05334 /* ResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
+		068AF0651F0D5B7200C05334 /* ResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +107,10 @@
 				06796D471F01F1B9003DB3FF /* AppDelegate.h */,
 				06796D481F01F1B9003DB3FF /* AppDelegate.m */,
 				06796D4A1F01F1B9003DB3FF /* ViewController.h */,
+				068AF0651F0D5B7200C05334 /* ResultsViewController.h */,
 				06796D4B1F01F1B9003DB3FF /* ViewController.m */,
 				06796D4D1F01F1B9003DB3FF /* Main.storyboard */,
+				068AF0631F0D5B0900C05334 /* ResultsViewController.m */,
 				06796D501F01F1B9003DB3FF /* Assets.xcassets */,
 				06796D521F01F1B9003DB3FF /* LaunchScreen.storyboard */,
 				06796D551F01F1B9003DB3FF /* Info.plist */,
@@ -276,6 +281,7 @@
 				06796D4C1F01F1B9003DB3FF /* ViewController.m in Sources */,
 				06796D491F01F1B9003DB3FF /* AppDelegate.m in Sources */,
 				06796D461F01F1B9003DB3FF /* main.m in Sources */,
+				068AF0641F0D5B0900C05334 /* ResultsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

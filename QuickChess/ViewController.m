@@ -62,6 +62,9 @@ bool gameStarted;
 // convert to string and set player's time label
 // update that player's seconds left
 -(void)onTick:(NSTimer *)timer {
+    if (curPlayerSecondsLeft == 0) {
+        
+    }
     curPlayerSecondsLeft -=1;
     curPlayerTimeLabel.text = [self getTimeStringFromSeconds:(curPlayerSecondsLeft)];
     if (isTopTurn) {
