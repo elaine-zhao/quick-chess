@@ -14,7 +14,7 @@
 
 @implementation ViewController
 
-int startingMins = 9; // TODO have players set
+float startingMins = .5; // TODO have players set
 int topSecondsLeft; // TODO make millis
 int bottomSecondsLeft;
 bool isTopTurn;
@@ -62,8 +62,8 @@ bool gameStarted;
 // convert to string and set player's time label
 // update that player's seconds left
 -(void)onTick:(NSTimer *)timer {
-    if (curPlayerSecondsLeft == 0) {
-        
+    if (curPlayerSecondsLeft <= 0) {
+        [self performSegueWithIdentifier:@"segueToResultsViewController" sender:nil];
     }
     curPlayerSecondsLeft -=1;
     curPlayerTimeLabel.text = [self getTimeStringFromSeconds:(curPlayerSecondsLeft)];

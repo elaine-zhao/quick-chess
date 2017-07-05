@@ -15,3 +15,13 @@
 
 @implementation ResultsViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    // rotate top label
+    [_topResultLabel setTransform:CGAffineTransformMakeRotation(-M_PI)];
+    
+}
+
+@end
