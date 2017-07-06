@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    _inputTimeText.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,6 +27,14 @@
 
 - (IBAction)startButtonPressed:(UIButton *)sender {
     [self performSegueWithIdentifier:@"segueToViewController" sender:nil];
+}
+
+// hide keyboard after click done/return
+- (bool)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == _inputTimeText) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 // set up starting time
