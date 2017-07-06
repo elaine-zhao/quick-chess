@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Enter Time Limits-->
         <scene sceneID="Gtv-PX-GNK">
             <objects>
                 <viewController id="vgj-7W-fVP" customClass="MainViewController" sceneMemberID="viewController">
@@ -22,27 +22,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="hello" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XGg-Iq-Uhu">
-                                <rect key="frame" x="139" y="280" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-5x-lc5" userLabel="startButton">
-                                <rect key="frame" x="164" y="364" width="47" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-5x-lc5" userLabel="startButton">
+                                <rect key="frame" x="136" y="306" width="104" height="54"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <state key="normal" title="START"/>
                                 <connections>
                                     <action selector="startButtonPressed:" destination="vgj-7W-fVP" eventType="touchUpInside" id="y9E-Hm-gZG"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="How many minutes for top player?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XGg-Iq-Uhu" userLabel="topInputTimeText">
+                                <rect key="frame" x="60.5" y="213" width="254" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="How many minutes for bottom player?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZFx-z7-Nav" userLabel="bottomInputTimeText">
+                                <rect key="frame" x="62.5" y="426" width="251" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZFx-z7-Nav" firstAttribute="top" secondItem="hdv-5x-lc5" secondAttribute="bottom" constant="66" id="TPM-jH-HzF"/>
+                            <constraint firstItem="hdv-5x-lc5" firstAttribute="centerY" secondItem="JL3-K1-Agm" secondAttribute="centerY" id="W0E-du-CHO"/>
+                            <constraint firstItem="hdv-5x-lc5" firstAttribute="centerX" secondItem="JL3-K1-Agm" secondAttribute="centerX" id="Z3T-sF-tTD"/>
+                            <constraint firstItem="hdv-5x-lc5" firstAttribute="top" secondItem="XGg-Iq-Uhu" secondAttribute="bottom" constant="63" id="bQp-VA-uhY"/>
+                            <constraint firstItem="XGg-Iq-Uhu" firstAttribute="centerX" secondItem="JL3-K1-Agm" secondAttribute="centerX" id="oOa-Cm-z0W"/>
+                            <constraint firstItem="ZFx-z7-Nav" firstAttribute="centerX" secondItem="JL3-K1-Agm" secondAttribute="centerX" id="sd8-h3-aDR"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="m1b-Ou-Glu"/>
+                    <navigationItem key="navigationItem" title="Enter Time Limits" id="m1b-Ou-Glu"/>
                     <connections>
-                        <outlet property="inputTimeText" destination="XGg-Iq-Uhu" id="W6l-ye-P6o"/>
+                        <outlet property="bottomInputTimeText" destination="ZFx-z7-Nav" id="vcN-zf-lvL"/>
+                        <outlet property="topInputTimeText" destination="XGg-Iq-Uhu" id="tty-NU-lu6"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="segueToViewController" id="tYr-e2-2Z8"/>
                     </connections>
                 </viewController>
@@ -63,11 +77,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dXL-8h-B7B" userLabel="topView">
-                                <rect key="frame" x="16" y="28" width="343" height="305.5"/>
+                                <rect key="frame" x="16" y="72" width="343" height="283.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDa-q5-OaV">
-                                        <rect key="frame" x="172" y="152.5" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <rect key="frame" x="172" y="141.5" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="70"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -87,11 +101,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lJL-aI-XJg" userLabel="bottomView">
-                                <rect key="frame" x="16" y="353.5" width="343" height="305.5"/>
+                                <rect key="frame" x="16" y="375.5" width="343" height="283.5"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKG-GL-zET">
-                                        <rect key="frame" x="171.5" y="152.5" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <rect key="frame" x="171.5" y="141.5" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="70"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -190,10 +204,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RcA-4H-OSL" userLabel="topView">
-                                <rect key="frame" x="16" y="28" width="343" height="305.5"/>
+                                <rect key="frame" x="16" y="72" width="343" height="283.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="topResult" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPa-vG-FmY" userLabel="topResultLabel">
-                                        <rect key="frame" x="171.5" y="153" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="171.5" y="142" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -206,10 +220,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pV3-Cb-lxh" userLabel="bottomView">
-                                <rect key="frame" x="16" y="353" width="343" height="305.5"/>
+                                <rect key="frame" x="16" y="375" width="343" height="283.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QZ-We-8KM" userLabel="bottomResultLabel">
-                                        <rect key="frame" x="171.5" y="153" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="171.5" y="142" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

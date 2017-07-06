@@ -17,7 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    _inputTimeText.delegate = self;
+    _topInputTimeText.delegate = self;
+    _bottomInputTimeText.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,12 +32,13 @@
 
 // hide keyboard after click done/return
 - (bool)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == _inputTimeText) {
+    if (textField == _topInputTimeText || textField == _bottomInputTimeText) {
         [textField resignFirstResponder];
     }
     return YES;
 }
 
+// hide keyboard after tap outside keyboard 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
@@ -45,7 +47,8 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"segueToViewController"]) {
         ViewController *vc = [segue destinationViewController];
-        vc.startingTime = [_inputTimeText.text floatValue];
+        vc.topStartingTime = [_topInputTimeText.text floatValue];
+        vc.bottomStartingTime = [_bottomInputTimeText.text floatValue];
     }
 }
 

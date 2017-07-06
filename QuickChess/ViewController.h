@@ -18,7 +18,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 
-@property (nonatomic) float startingTime;
+@property (nonatomic) float topStartingTime;
+
+@property (nonatomic) float bottomStartingTime;
 
 @end
 

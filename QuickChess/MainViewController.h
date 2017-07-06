@@ -10,7 +10,9 @@
 
 @interface MainViewController : UIViewController <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *inputTimeText;
+@property (weak, nonatomic) IBOutlet UITextField *topInputTimeText;
+
+@property (weak, nonatomic) IBOutlet UITextField *bottomInputTimeText;
 
 @end
 

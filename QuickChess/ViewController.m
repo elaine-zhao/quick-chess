@@ -124,8 +124,8 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 
 // sets players' time left to starting time
 - (void) setUpBeforeStartGame {
-    topSecondsLeft = _startingTime * 60;
-    bottomSecondsLeft = _startingTime * 60;
+    topSecondsLeft = _topStartingTime * 60;
+    bottomSecondsLeft = _bottomStartingTime * 60;
     
     _topTimeLabel.text = [self getTimeStringFromSeconds:(topSecondsLeft)];
     _bottomTimeLabel.text = [self getTimeStringFromSeconds:(bottomSecondsLeft)];
