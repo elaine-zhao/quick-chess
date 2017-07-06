@@ -14,5 +14,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bottomResultLabel;
 
+@property (weak, nonatomic) NSString *topResultStr;
+
+@property (weak, nonatomic) NSString *bottomResultStr;
+
 @end
 

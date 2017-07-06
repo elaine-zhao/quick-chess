@@ -22,6 +22,8 @@
     // rotate top label
     [_topResultLabel setTransform:CGAffineTransformMakeRotation(-M_PI)];
     
+    _topResultLabel.text = _topResultStr;
+    _bottomResultLabel.text = _bottomResultStr;
 }
 
 @end

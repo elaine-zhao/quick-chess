@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ResultsViewController.h"
 
 @interface ViewController ()
 
@@ -14,7 +15,7 @@
 
 @implementation ViewController
 
-float startingMins = .5; // TODO have players set
+float startingMins = .1; // TODO have players set
 int topSecondsLeft; // TODO make millis
 int bottomSecondsLeft;
 bool isTopTurn;
@@ -22,6 +23,9 @@ int curPlayerSecondsLeft;
 UILabel *curPlayerTimeLabel;
 NSTimer *timer;
 bool gameStarted;
+bool topWin;
+NSString* winResultStr = @"YOU WON";
+NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,15 +66,19 @@ bool gameStarted;
 // convert to string and set player's time label
 // update that player's seconds left
 -(void)onTick:(NSTimer *)timer {
+    // end game, go to results view
     if (curPlayerSecondsLeft <= 0) {
+        topWin = !isTopTurn;
         [self performSegueWithIdentifier:@"segueToResultsViewController" sender:nil];
-    }
-    curPlayerSecondsLeft -=1;
-    curPlayerTimeLabel.text = [self getTimeStringFromSeconds:(curPlayerSecondsLeft)];
-    if (isTopTurn) {
-        topSecondsLeft = curPlayerSecondsLeft;
+    // decrease current player's time and update time displayed
     } else {
-        bottomSecondsLeft = curPlayerSecondsLeft;
+        curPlayerSecondsLeft -=1;
+        curPlayerTimeLabel.text = [self getTimeStringFromSeconds:(curPlayerSecondsLeft)];
+        if (isTopTurn) {
+            topSecondsLeft = curPlayerSecondsLeft;
+        } else {
+            bottomSecondsLeft = curPlayerSecondsLeft;
+        }
     }
 }
 
@@ -103,6 +111,7 @@ bool gameStarted;
     }
 }
 
+// reset both timers
 - (IBAction)refreshButtonPressed:(UIButton *)sender {
     if (gameStarted) {
         if (timer != nil) {
@@ -131,6 +140,20 @@ bool gameStarted;
                                              target: self
                                            selector:@selector(onTick:)
                                            userInfo: nil repeats:YES];
+}
+
+// set up result strings for top and bottom players depending on who won
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"segueToResultsViewController"]) {
+        ResultsViewController *rvc = [segue destinationViewController];
+        if (topWin) {
+            rvc.topResultStr = winResultStr;
+            rvc.bottomResultStr = loseResultStr;
+        } else {
+            rvc.topResultStr = loseResultStr;
+            rvc.bottomResultStr = winResultStr;
+        }
+    }
 }
 
 @end
