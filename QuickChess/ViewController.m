@@ -68,7 +68,7 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     // end game, go to results view
     if (curPlayerSecondsLeft <= 0) {
         topWin = !isTopTurn;
-        [self performSegueWithIdentifier:@"segueToResultsViewController" sender:nil];
+        [self gameOver];
     // decrease current player's time and update time displayed
     } else {
         curPlayerSecondsLeft -=1;
@@ -139,6 +139,12 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
                                              target: self
                                            selector:@selector(onTick:)
                                            userInfo: nil repeats:YES];
+}
+
+- (void) gameOver {
+    [timer invalidate];
+    timer = nil;
+    [self performSegueWithIdentifier:@"segueToResultsViewController" sender:nil];
 }
 
 // set up result strings for top and bottom players depending on who won

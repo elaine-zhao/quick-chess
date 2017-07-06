@@ -25,12 +25,12 @@
 }
 
 - (IBAction)startButtonPressed:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"segueToTimersViewController" sender:nil];
+    [self performSegueWithIdentifier:@"segueToViewController" sender:nil];
 }
 
 // set up starting time
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"segueToTimersViewController"]) {
+    if ([segue.identifier isEqualToString:@"segueToViewController"]) {
         ViewController *vc = [segue destinationViewController];
         vc.startingTime = [_inputTimeText.text floatValue];
     }
