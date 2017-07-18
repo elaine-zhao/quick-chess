@@ -15,14 +15,17 @@
 
 @implementation ViewController
 
-int topSecondsLeft; // TODO make millis
+int topSecondsLeft;
 int bottomSecondsLeft;
-bool isTopTurn;
-int curPlayerSecondsLeft;
-UILabel *curPlayerTimeLabel;
-NSTimer *timer;
+bool topPaused;
+bool bottomPaused;
+NSTimer *topTimer;
+NSTimer *bottomTimer;
 bool gameStarted;
 bool topWin;
+NSString* currentPlayerStr;
+NSString* topPlayerStr = @"TOP";
+NSString* bottomPlayertStr = @"BOTTOM";
 NSString* winResultStr = @"YOU WON";
 NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 
@@ -44,13 +47,19 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 // change relevant variables so that ticks will update other player's time
 - (void)swapTurn:(bool) toTop {
     if (toTop == true) {
-        isTopTurn = true;
-        curPlayerSecondsLeft = topSecondsLeft;
-        curPlayerTimeLabel = _topTimeLabel;
+        if (topTimer == nil) {
+            [self createNewTimer: true];
+        }
+        bottomPaused = true;
+        topPaused = false;
+        currentPlayerStr = topPlayerStr;
     } else {
-        isTopTurn = false;
-        curPlayerSecondsLeft = bottomSecondsLeft;
-        curPlayerTimeLabel = _bottomTimeLabel;
+        if (bottomTimer == nil) {
+            [self createNewTimer: false];
+        }
+        topPaused = true;
+        bottomPaused = false;
+        currentPlayerStr = bottomPlayertStr;
     }
 }
 
@@ -61,23 +70,35 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
 }
 
-// subtract from current player's seconds left
-// convert to string and set player's time label
-// update that player's seconds left
--(void)onTick:(NSTimer *)timer {
+// update top player's seconds left and time label if it's their timer is not paused
+-(void)onTickTop:(NSTimer *)timer {
+    if (topPaused == true) {
+        return;
+    }
     // end game, go to results view
-    if (curPlayerSecondsLeft <= 0) {
-        topWin = !isTopTurn;
+    if (topSecondsLeft <= 0) {
+        topWin = false;
         [self gameOver];
     // decrease current player's time and update time displayed
     } else {
-        curPlayerSecondsLeft -=1;
-        curPlayerTimeLabel.text = [self getTimeStringFromSeconds:(curPlayerSecondsLeft)];
-        if (isTopTurn) {
-            topSecondsLeft = curPlayerSecondsLeft;
-        } else {
-            bottomSecondsLeft = curPlayerSecondsLeft;
-        }
+        topSecondsLeft -=1;
+        _topTimeLabel.text = [self getTimeStringFromSeconds:(topSecondsLeft)];
+    }
+}
+
+// same as onTickTop but updates bottom times
+-(void)onTickBottom:(NSTimer *)timer {
+    if (bottomPaused == true) {
+        return;
+    }
+    // end game, go to results view
+    if (bottomSecondsLeft <= 0) {
+        topWin = true;
+        [self gameOver];
+    // decrease current player's time and update time displayed
+    } else {
+        bottomSecondsLeft -=1;
+        _bottomTimeLabel.text = [self getTimeStringFromSeconds:(bottomSecondsLeft)];
     }
 }
 
@@ -89,23 +110,29 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     if (!gameStarted) {
         gameStarted = true;
         [self swapTurn: (isTop)];
-        [self createNewTimer];
     }
     // swap player if not paused
-    else if (timer != nil) {
+    else if (isTop && !topPaused) {
+        [self swapTurn: (!isTop)];
+    }
+    else if (!isTop && !bottomPaused) {
         [self swapTurn: (!isTop)];
     }
 }
 
 - (IBAction)pauseResumeButtonPressed:(UIButton *)sender {
     if (gameStarted) {
-        if (timer != nil) { // pause game
-            [timer invalidate];
-            timer = nil;
+        if (!topPaused || !bottomPaused) { // pause game
             [sender setImage:[UIImage imageNamed:@"Resume"] forState:UIControlStateNormal];
-        } else { // resume game
-            [self createNewTimer];
+            topPaused = true;
+            bottomPaused = true;
+        } else { // resume game. change current player's paused to false
             [sender setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
+            if ([currentPlayerStr isEqualToString:topPlayerStr]) {
+                topPaused = false;
+            } else {
+                bottomPaused = false;
+            }
         }
     }
 }
@@ -113,9 +140,13 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 // reset both timers
 - (IBAction)refreshButtonPressed:(UIButton *)sender {
     if (gameStarted) {
-        if (timer != nil) {
-            [timer invalidate];
-            timer = nil;
+        if (topTimer != nil) {
+            [topTimer invalidate];
+            topTimer = nil;
+        }
+        if (bottomTimer != nil) {
+            [bottomTimer invalidate];
+            bottomTimer = nil;
         }
         [self setUpBeforeStartGame];
         
@@ -133,17 +164,26 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     gameStarted = false;
 }
 
-// TODO slight cheat bc always get full second after resume
-- (void) createNewTimer {
-    timer = [NSTimer scheduledTimerWithTimeInterval: 1
-                                             target: self
-                                           selector:@selector(onTick:)
-                                           userInfo: nil repeats:YES];
+- (void) createNewTimer: (bool) forTop {
+    if (forTop) {
+        topTimer = [NSTimer scheduledTimerWithTimeInterval: 1
+                                                   target: self
+                                                 selector:@selector(onTickTop:)
+                                                 userInfo: nil repeats:YES];
+
+    } else {
+        bottomTimer = [NSTimer scheduledTimerWithTimeInterval: 1
+                                                 target: self
+                                               selector:@selector(onTickBottom:)
+                                               userInfo: nil repeats:YES];
+    }
 }
 
 - (void) gameOver {
-    [timer invalidate];
-    timer = nil;
+    [topTimer invalidate];
+    topTimer = nil;
+    [bottomTimer invalidate];
+    bottomTimer = nil;
     [self performSegueWithIdentifier:@"segueToResultsViewController" sender:nil];
 }
 
