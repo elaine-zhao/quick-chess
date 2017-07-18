@@ -14,8 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bottomTimeLabel;
 
-//@property (weak, nonatomic) IBOutlet UIView *buttonsView;
-
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (nonatomic) float topStartingTime;

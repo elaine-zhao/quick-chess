@@ -15,17 +15,17 @@
 
 @implementation ViewController
 
-int topSecondsLeft;
-int bottomSecondsLeft;
-bool topPaused;
-bool bottomPaused;
-NSTimer *topTimer;
-NSTimer *bottomTimer;
 bool gameStarted;
-bool topWin;
-NSString* currentPlayerStr;
 NSString* topPlayerStr = @"TOP";
 NSString* bottomPlayertStr = @"BOTTOM";
+NSString* currentPlayerStr;
+NSTimer *topTimer;
+NSTimer *bottomTimer;
+bool topPaused;
+bool bottomPaused;
+int topSecondsLeft;
+int bottomSecondsLeft;
+bool topWin;
 NSString* winResultStr = @"YOU WON";
 NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 
@@ -44,9 +44,11 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     // Dispose of any resources that can be recreated.
 }
 
-// change relevant variables so that ticks will update other player's time
+// if no timer exists for next player, create it
+// "pause" previous player's timer
+// "unpause" next player's timer
 - (void)swapTurn:(bool) toTop {
-    if (toTop == true) {
+    if (toTop) {
         if (topTimer == nil) {
             [self createNewTimer: true];
         }
@@ -70,7 +72,7 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
 }
 
-// update top player's seconds left and time label if it's their timer is not paused
+// update top player's seconds left and time label if their timer is not paused
 -(void)onTickTop:(NSTimer *)timer {
     if (topPaused == true) {
         return;
@@ -91,21 +93,19 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     if (bottomPaused == true) {
         return;
     }
-    // end game, go to results view
     if (bottomSecondsLeft <= 0) {
         topWin = true;
         [self gameOver];
-    // decrease current player's time and update time displayed
     } else {
         bottomSecondsLeft -=1;
         _bottomTimeLabel.text = [self getTimeStringFromSeconds:(bottomSecondsLeft)];
     }
 }
 
-// if first tap, start game and start the timer on this player's side
+// if first tap, start game and start with current player turn
 // else, swap to other player's turn
 - (IBAction)playerButtonTapped:(UIButton *)sender {
-    bool isTop = sender.tag; // TODO depends on tag convention
+    bool isTop = [sender.accessibilityIdentifier isEqualToString: topPlayerStr];
     // start game
     if (!gameStarted) {
         gameStarted = true;
@@ -120,6 +120,7 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
     }
 }
 
+// pause game if both player's aren't paused. otherwise resume current player's turn
 - (IBAction)pauseResumeButtonPressed:(UIButton *)sender {
     if (gameStarted) {
         if (!topPaused || !bottomPaused) { // pause game
@@ -170,7 +171,6 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
                                                    target: self
                                                  selector:@selector(onTickTop:)
                                                  userInfo: nil repeats:YES];
-
     } else {
         bottomTimer = [NSTimer scheduledTimerWithTimeInterval: 1
                                                  target: self
@@ -191,13 +191,8 @@ NSString* loseResultStr = @"YOU RAN OUT OF TIME";
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"segueToResultsViewController"]) {
         ResultsViewController *rvc = [segue destinationViewController];
-        if (topWin) {
-            rvc.topResultStr = winResultStr;
-            rvc.bottomResultStr = loseResultStr;
-        } else {
-            rvc.topResultStr = loseResultStr;
-            rvc.bottomResultStr = winResultStr;
-        }
+        rvc.topResultStr = topWin ? winResultStr : loseResultStr;
+        rvc.bottomResultStr = topWin ? loseResultStr : winResultStr;
     }
 }
 
